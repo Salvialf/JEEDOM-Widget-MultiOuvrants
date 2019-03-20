@@ -1,24 +1,23 @@
 <!-- volet1 // volet2 // volet3 // volet4 // volet5 // volet6 // volet7 // volet 8 // volet9 // velux1 // velux2 // velux3 // rideau1 // rideau2 
 // store1 // portail1 // garage1 -->
 
-<div style="min-width:100px; min-height:100px;" class="cmd tooltips cmd-widget cursor container-fluid #history# #displayHistory#" data-type="info" data-subtype="numeric" data-cmd_id="#id#" data-cmd_uid="#uid#">
+<div style="min-width:100px; min-height:100px;" class="cmd tooltips cmd-widget #history# #displayHistory#" data-type="info" data-subtype="numeric" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#">
 	<center>
 		<span style="font-weight: bold;font-size:12px;#hideCmdName#">#name_display#</span>
 		<div class="iconCmd#id#"></div>
-	<div class="position#id#" style="font-weight:bold;">
-		<span>#state#</span> 	
-      	<span>#unite#</span> 
-		</div>
+	<div class="position#id#" style="font-weight:bold;"></div>
 	<div style="#displayHistory# font-size: 0.8em;" class="col-xs-12 center-block">
 			<span title="Min" class="tooltips">#minHistoryValue#</span>|<span title="Moyenne" class="tooltips" >#averageHistoryValue#</span> | <span title="Max" class="tooltips">#maxHistoryValue#</span> <i class="#tendance#"></i>
 		</div>
 	</center>
 	<script>
+   var iconUpdate#uid# = function (state) {
    var valueType = ('#type#' !='#'+'type#') ? "#type#":"volet1";
    var srcImg = "plugins/widget/core/template/dashboard/cmd.info.numeric.MultiOuvrants/"+valueType;
-   var valueTaille = is_numeric('#taille#') ? parseFloat('#taille#'):95;
-   var paramTaille = '/height='+valueTaille+'px width='+valueTaille+'px';
-   var iconUpdate = function (state){
+   var valueH = is_numeric('#hauteur#') ? parseFloat('#hauteur#'):95;
+   var valueL = is_numeric('#largeur#') ? parseFloat('#largeur#'):95;
+   var paramTaille = 'height='+valueH+'px width='+valueL+'px';
+      
 		$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').empty();
 		if (state >= 0 && state <= 5) {
 			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img style="display: inline-block;" src="'+srcImg+'/0.png" '+paramTaille+'>');
@@ -55,10 +54,10 @@
 		}
    }
 	jeedom.cmd.update['#id#'] = function(_options){
-		$('.cmd[data-cmd_uid=#uid#]').attr('title','Valeur du '+_options.valueDate+', collectÃ©e le '+_options.collectDate)
-		iconUpdate(_options.display_value);
+		$('.cmd[data-cmd_uid=#uid#]').attr('title','Valeur du '+_options.valueDate+', collectée le '+_options.collectDate)
+		iconUpdate#uid#(_options.display_value);
       
-      var valuePosition = Boolean('#position#');
+   var valuePosition = Boolean('#position#');
      if (valuePosition == false) { 
 		 $('.cmd[data-cmd_id=#id#] .position#id#').empty().text(_options.display_value+'#unite#').show();
      }
