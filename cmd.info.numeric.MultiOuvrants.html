@@ -11,50 +11,48 @@
 		</div>
 	</center>
 	<script>
-   var iconUpdate#uid# = function (state) {
-   var valueType = ('#type#' !='#'+'type#') ? "#type#":"volet1";
-   var srcImg = "plugins/widget/core/template/dashboard/cmd.info.numeric.MultiOuvrants/"+valueType;
-   var valueH = is_numeric('#hauteur#') ? parseFloat('#hauteur#'):95;
-   var valueL = is_numeric('#largeur#') ? parseFloat('#largeur#'):95;
-   var paramTaille = 'height='+valueH+'px width='+valueL+'px';
+   	var iconUpdate#uid# = function (state) {
+   	var valueType = ('#type#' !='#'+'type#') ? "#type#":"volet1";
+	var srcImgURL 	= "plugins/widget/core/template/dashboard/cmd.info.numeric.MultiOuvrants/";
+   	var valueH = is_numeric('#hauteur#') ? parseFloat('#hauteur#'):95;
+   	var valueL = is_numeric('#largeur#') ? parseFloat('#largeur#'):95;
+   	var paramTaille = 'height='+valueH+'px width='+valueL+'px';
       
 		$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').empty();
 		if (state >= 0 && state <= 5) {
-			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img style="display: inline-block;" src="'+srcImg+'/0.png" '+paramTaille+'>');
+          		srcPictureID ="/0";
+		} else if (state >= 6 && state <= 15) {
+          		srcPictureID ="/10";
+		}else if (state >= 16 && state <= 25) {
+          		srcPictureID ="/20";
+		}else if (state >= 26 && state <= 35) {
+          		srcPictureID ="/30";
+		}else if (state >= 36 && state <= 45) {
+          		srcPictureID ="/40";
+		}else if (state >= 46 && state <= 55) {
+          		srcPictureID ="/50";
+		}else if (state >= 56 && state <= 65) {
+          		srcPictureID ="/60";
+        	}else if (state >= 66 && state <= 75) {
+          		srcPictureID ="/70";
+		}else if (state >= 76 && state <= 85) {
+          		srcPictureID ="/80";
+		}else if (state >= 86 && state <= 95) {
+          		srcPictureID ="/90";
+		}else if (state >= 96 && state <= 100) {
+          		srcPictureID ="/100";
+		}else {
+          		srcPictureID ="error";      
 		}
-		if (state >= 6 && state <= 15) {
-			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img style="display: inline-block;" src="'+srcImg+'/10.png" '+paramTaille+'>');
-		}
-		if (state >= 16 && state <= 25) {
-			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img style="display: inline-block;" src="'+srcImg+'/20.png" '+paramTaille+'>');
-		}
-		if (state >= 26 && state <= 35) {
-			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img style="display: inline-block;" src="'+srcImg+'/30.png" '+paramTaille+'>');
-		}
-		if (state >= 36 && state <= 45) {
-			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img style="display: inline-block;" src="'+srcImg+'/40.png" '+paramTaille+'>');
-		}
-		if (state >= 46 && state <= 55) {
-			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img style="display: inline-block;" src="'+srcImg+'/50.png" '+paramTaille+'>');
-		}
-		if (state >= 56 && state <= 65) {
-			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img style="display: inline-block;" src="'+srcImg+'/60.png" '+paramTaille+'>');
-        }  
-		if (state >= 66 && state <= 75) {
-			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img style="display: inline-block;" src="'+srcImg+'/70.png" '+paramTaille+'>');
-		}
-		if (state >= 76 && state <= 85) {
-			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img style="display: inline-block;" src="'+srcImg+'/80.png" '+paramTaille+'>');
-		}
-		if (state >= 86 && state <= 95) {
-			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img style="display: inline-block;" src="'+srcImg+'/90.png" '+paramTaille+'>');
-		}
-		if (state >= 96 && state <= 100) {
-			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img style="display: inline-block;" src="'+srcImg+'/100.png" '+paramTaille+'>');
-		}
+	// Gestion données hors plage
+      		if (srcPictureID =="error") {
+              		$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img style="display: inline-block;" src="'+srcImgURL+ srcImglogoER +'.png" '+paramTaille+'>');
+            	}else {
+      			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img style="display: inline-block;" src="'+srcImgURL+ valueType +srcPictureID +'.png" '+paramTaille+'>');
+            	}
    }
 	jeedom.cmd.update['#id#'] = function(_options){
-		$('.cmd[data-cmd_uid=#uid#]').attr('title','Valeur du '+_options.valueDate+', collect�e le '+_options.collectDate)
+		$('.cmd[data-cmd_uid=#uid#]').attr('title','Valeur du '+_options.valueDate+', collectée le '+_options.collectDate)
 		iconUpdate#uid#(_options.display_value);
       
    var valuePosition = Boolean('#position#');
