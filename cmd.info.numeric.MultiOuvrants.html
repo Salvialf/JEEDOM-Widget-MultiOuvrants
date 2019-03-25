@@ -12,11 +12,13 @@
 	</center>
 	<script>
    	var iconUpdate#uid# = function (state) {
-   	var valueType = ('#type#' !='#'+'type#') ? "#type#":"volet1";
-	var srcImgURL 	= "plugins/widget/core/template/dashboard/cmd.info.numeric.MultiOuvrants/";
-   	var valueH = is_numeric('#hauteur#') ? parseFloat('#hauteur#'):95;
-   	var valueL = is_numeric('#largeur#') ? parseFloat('#largeur#'):95;
-   	var paramTaille = 'height='+valueH+'px width='+valueL+'px';
+   	var valueType 		= ('#type#' !='#'+'type#') ? "#type#":"volet1";
+	var srcImgURL 		= "plugins/widget/core/template/dashboard/cmd.info.numeric.MultiOuvrants/";
+   	var valueH 		= is_numeric('#hauteur#') ? parseFloat('#hauteur#'):95;
+   	var valueL 		= is_numeric('#largeur#') ? parseFloat('#largeur#'):95;
+   	var paramTaille 	= 'height='+valueH+'px width='+valueL+'px';
+	var srcPictureID;
+    	var srcImglogoER	= ('#logo_error#'!='#'+'logo_error#') ? "#logo_error#" : "error";
       
 		$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').empty();
 		if (state >= 0 && state <= 5) {
