@@ -1,37 +1,36 @@
-<!-- OUVRANTS: volet1 // volet2 // volet3 // volet4 // volet5 // volet6 // volet7 // volet 8 // volet9 // velux1 // velux2 // velux3 // rideau1 // rideau2 
+<!-- volet1 // volet2 // volet3 // volet4 // volet5 // volet6 // volet7 // volet 8 // volet9 // velux1 // velux2 // velux3 // rideau1 // rideau2 
 // store1 // portail1 // garage1 -->
 <!-- AUTRES: cuve1 // spot1 // spot2 // ampoule1 // lumext1 -->
 
-<div style="min-width:100px; min-height:100px;" class="cmd tooltips cmd-widget #history# #displayHistory#" data-type="info" data-subtype="numeric" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#">
-	<center>
-		<span style="font-weight: bold;font-size:12px;#hideCmdName#">#name_display#</span>
+<div class="cmd" data-type="info" data-subtype="numeric" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#">
+		<span style="font-size:12px;#hideCmdName#">#name_display#</span>
 		<div class="iconCmd#id#"></div>
-		<span class="position#id#" style="font-weight:bold;"></span>
+		<span class="position#id#" style="font-weight:bold;"></span><br>
 		<div style="#displayHistory# font-size: 0.8em;">
-		<span title="Min" class="tooltips">#minHistoryValue#</span>|<span title="Moyenne" class="tooltips" >#averageHistoryValue#</span>|<span title="Max" class="tooltips">#maxHistoryValue#</span> <i class="#tendance#"></i>
+		<span title="Min" class="tooltips">#minHistoryValue#</span>|<span title="Moyenne" class="tooltips">#averageHistoryValue#</span>|<span title="Max" class="tooltips">#maxHistoryValue#</span> <i class="#tendance#"></i>
 		</div>
       	<span class="timeCmd#id#"></span>
-	</center>
-  <style>
+    <style>
 .timeCmd#id# {
-      width:95%;
+  	  width:45%;
       display:inline-block;
       font-size:13px;
       font-weight:bold;
-      margin-bottom:5px;
+  	  line-height:1.5;
+      margin:5px 0px 5px 0px;
       background-color:#cmdColor#!important;
       border-radius: 7px;
-/*      box-shadow:0px 2px 2px 0px rgba(0, 0, 0, 1),0px 2px 2px 0px rgba(255, 255, 255, 0.5) inset;*/
+/*    box-shadow:0px 2px 2px 0px rgba(0, 0, 0, 1),0px 2px 2px 0px rgba(255, 255, 255, 0.5) inset;*/
       box-shadow:0px 2px 2px 0px rgba(0, 0, 0, 1) inset,0px 2px 2px 0px rgba(255, 255, 255, 0.5);
       text-shadow: 1px 2px 8px #000;
     }
   </style>
 	<script>
-   var iconUpdate#uid# = function (state) {
+   	 var iconUpdate#uid# = function (state) {
    var valueType = ('#type#' !='#'+'type#') ? "#type#":"volet1";
    var srcImg = "plugins/widget/core/template/dashboard/cmd.info.numeric.MultiOuvrants/"+valueType;
-   var valueH = is_numeric('#hauteur#') ? parseFloat('#hauteur#'):95;
-   var valueL = is_numeric('#largeur#') ? parseFloat('#largeur#'):95;
+   var valueH = is_numeric('#hauteur2#') ? parseFloat('#hauteur2#'):75;
+   var valueL = is_numeric('#largeur2#') ? parseFloat('#largeur2#'):75;
    var paramTaille = 'height='+valueH+'px width='+valueL+'px';
       
 		$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').empty();
@@ -71,7 +70,6 @@
       }
       
 	jeedom.cmd.update['#id#'] = function(_options){
-		$('.cmd[data-cmd_uid=#uid#]').attr('title','Valeur du '+_options.valueDate+', collectée le '+_options.collectDate)
 		iconUpdate#uid#(_options.display_value);
       
    var valuePosition = Boolean('#position#');
@@ -83,15 +81,17 @@
      }
       
       var valUptime = '#time#';
-     
+      
       if (valUptime == 'duree') {
  		$.include(['plugins/widget/core/template/dashboard/cmd.info.numeric.MultiOuvrants/duration.custom.js'], function() {
          jeedom.cmd.displayDuration2(_options.valueDate, $('.cmd[data-cmd_id=#id#] .timeCmd#id#'));  
 	 })
       	}
       else if (valUptime == 'date') {
+        var week = ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'];
+        var month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
         var date = new Date(_options.valueDate);
-		var format = $.datepicker.formatDate('D dd/mm', date);
+		var format = week[date.getDay()]+" "+date.getDate()+"/"+month[date.getMonth()];
 		var time = "à "+date.getHours()+":"+(date.getMinutes()<10?'0':'')+date.getMinutes();
         $('.cmd[data-cmd_id=#id#] .timeCmd#id#').empty().html(format+'<br>'+time);
       	}
@@ -102,6 +102,6 @@
       	}
       
 	}
-	jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
+	jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#'});
 	</script>
 </div>
