@@ -1,0 +1,91 @@
+<!-- OUVRANTS: volet1 // volet2 // volet3 // volet4 // volet5 // volet6 // volet7 // volet 8 // volet9 // velux1 // velux2 // velux3 // rideau1 // rideau2 
+// store1 // portail1 // garage1 -->
+<!-- AUTRES: cuve1 // spot1 // spot2 // ampoule1 // lumext1 -->
+
+<div class="cmd tooltips cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="#id#" data-cmd_uid="#uid#"  data-version="#version#" data-eqLogic_id="#eqLogic_id#">
+ <div class="title #hide_name#">
+    <div class="cmdName">#name_display#</div>
+  </div>
+		<div class="iconCmd#id# #history#"></div>
+		<div class="position#id#"></div>
+		<div class="cmdStats #hide_history#">
+  <span title='Min' class='tooltips'>#minHistoryValue#</span>|<span title='Moyenne' class='tooltips'>#averageHistoryValue#</span>|<span title='Max' class='tooltips'>#maxHistoryValue#</span> <i class="#tendance#"></i>
+		</div>
+      	<span class="timeCmd#uid# timeCmd label label-default"></span>
+	<script>
+   var iconUpdate#uid# = function (state) {
+   var valueType = ('#type#' !='#'+'type#') ? "#type#":"volet1";
+   var srcImg = "data/customTemplates/dashboard/cmd.info.numeric.MultiOuvrants/"+valueType;
+   var valueH = is_numeric('#hauteur#') ? parseFloat('#hauteur#'):95;
+   var valueL = is_numeric('#largeur#') ? parseFloat('#largeur#'):95;
+   var paramTaille = 'height='+valueH+'px width='+valueL+'px';
+      
+		$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').empty();
+		if (state == 0) {
+			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img src="'+srcImg+'/0.png" '+paramTaille+'>');
+		}
+		if (state > 0 && state <= 11) {
+			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img src="'+srcImg+'/10.png" '+paramTaille+'>');
+		}
+		if (state > 11 && state <= 22) {
+			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img src="'+srcImg+'/20.png" '+paramTaille+'>');
+		}
+		if (state > 22 && state <= 33) {
+			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img src="'+srcImg+'/30.png" '+paramTaille+'>');
+		}
+		if (state > 33 && state <= 44) {
+			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img src="'+srcImg+'/40.png" '+paramTaille+'>');
+		}
+		if (state > 44 && state <= 55) {
+			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img src="'+srcImg+'/50.png" '+paramTaille+'>');
+		}
+		if (state > 55 && state <= 66) {
+			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img src="'+srcImg+'/60.png" '+paramTaille+'>');
+        }  
+		if (state > 66 && state <= 77) {
+			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img src="'+srcImg+'/70.png" '+paramTaille+'>');
+		}
+		if (state > 77 && state <= 88) {
+			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img src="'+srcImg+'/80.png" '+paramTaille+'>');
+		}
+		if (state > 88 && state < 99) {
+			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img src="'+srcImg+'/90.png" '+paramTaille+'>');
+		}
+		if (state >= 99 && state <= 100) {
+			$('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img src="'+srcImg+'/100.png" '+paramTaille+'>');
+		}
+      }
+      
+	jeedom.cmd.update['#id#'] = function(_options){
+		$('.cmd[data-cmd_uid=#uid#]').attr('title','Valeur du '+_options.valueDate+', collectée le '+_options.collectDate)
+		iconUpdate#uid#(_options.display_value);
+      
+   var valuePosition = Boolean('#position#');
+     if (valuePosition == false) { 
+		 $('.cmd[data-cmd_id=#id#] .position#id#').text(_options.display_value+'#unite#').show();
+     }
+     else {
+       $('.cmd[data-cmd_uid=#uid#] .position#id#').text(_options.display_value+'#unite#').hide();
+     }
+      
+     if ('#time#' == 'duree') {  
+        jeedom.cmd.displayDuration(_options.valueDate,  $('.cmd[data-cmd_id=#id#] .timeCmd'));
+          }
+      else if ('#time#' == 'date') {
+      	var date = new Date(_options.valueDate.replace(' ', 'T'));
+        var t = _options.valueDate.split(/[- :]/);
+		var format = $.datepicker.formatDate('D d M', date);
+        var time = "à "+t[3]+":"+t[4];  
+        $('.cmd[data-cmd_id=#id#] .timeCmd').html(format+'<br>'+time);
+      	}
+      else if ('#time#' == 'heure') {
+        var date = new Date(_options.valueDate.replace(' ', 'T'));
+        var t = _options.valueDate.split(/[- :]/);
+        var time = "à "+t[3]+":"+t[4]+":"+t[5];  
+        $('.cmd[data-cmd_id=#id#] .timeCmd').html(time);
+      	}
+        $('.cmd[data-cmd_id=#id#]').attr('title','Date de valeur : '+_options.valueDate+'<br/>Date de collecte : '+_options.collectDate)
+		}
+      	jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'})
+  </script>
+</div>

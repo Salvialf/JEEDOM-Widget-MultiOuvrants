@@ -1,4 +1,4 @@
-<!-- volet1 // volet2 // volet3 // volet4 // volet5 // volet6 // volet7 // volet 8 // volet9 // velux1 // velux2 // velux3 // rideau1 // rideau2 
+<!-- OUVRANTS: volet1 // volet2 // volet3 // volet4 // volet5 // volet6 // volet7 // volet 8 // volet9 // velux1 // velux2 // velux3 // rideau1 // rideau2 
 // store1 // portail1 // garage1 -->
 <!-- AUTRES: cuve1 // spot1 // spot2 // ampoule1 // lumext1 -->
 
@@ -17,7 +17,7 @@
       font-size:13px;
       font-weight:bold;
   	  line-height:1.5;
-      margin:5px 0px 5px 0px;
+      margin-bottom:5px;
       background-color:#cmdColor#!important;
       border-radius: 7px;
 /*    box-shadow:0px 2px 2px 0px rgba(0, 0, 0, 1),0px 2px 2px 0px rgba(255, 255, 255, 0.5) inset;*/
@@ -26,7 +26,7 @@
     }
   </style>
 	<script>
-   	 var iconUpdate#uid# = function (state) {
+		var iconUpdate#uid# = function (state) {
    var valueType = ('#type#' !='#'+'type#') ? "#type#":"volet1";
    var srcImg = "plugins/widget/core/template/dashboard/cmd.info.numeric.MultiOuvrants/"+valueType;
    var valueH = is_numeric('#hauteur2#') ? parseFloat('#hauteur2#'):75;
@@ -89,15 +89,15 @@
       	}
       else if (valUptime == 'date') {
         var week = ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'];
-        var month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-        var date = new Date(_options.valueDate);
-		var format = week[date.getDay()]+" "+date.getDate()+"/"+month[date.getMonth()];
-		var time = "à "+date.getHours()+":"+(date.getMinutes()<10?'0':'')+date.getMinutes();
+    	var date = new Date(_options.valueDate.replace(' ', 'T'));
+        var t = _options.valueDate.split(/[- :]/);
+		var format = week[date.getDay()]+" "+t[2]+"/"+t[1];
+        var time = "à "+t[3]+":"+t[4];
         $('.cmd[data-cmd_id=#id#] .timeCmd#id#').empty().html(format+'<br>'+time);
       	}
       else if (valUptime == 'heure') {
-        var date = new Date(_options.valueDate);
-        var time = "à "+date.getHours()+":"+(date.getMinutes()<10?'0':'')+date.getMinutes()+":"+(date.getSeconds()<10?'0':'')+date.getSeconds()+"";
+        var t = _options.valueDate.split(/[- :]/);
+        var time = "à "+t[3]+":"+t[4]+":"+t[5];
         $('.cmd[data-cmd_id=#id#] .timeCmd#id#').empty().html(time);
       	}
       
