@@ -82,26 +82,23 @@
        $('.cmd[data-cmd_uid=#uid#] .position#id#').empty().text(_options.display_value+'#unite#').hide();
      }
       
-      var valUptime = '#time#';
-     
-      if (valUptime == 'duree') {
- 		$.include(['plugins/widget/core/template/dashboard/cmd.info.numeric.MultiOuvrants/duration.custom.js'], function() {
-         jeedom.cmd.displayDuration2(_options.valueDate, $('.cmd[data-cmd_id=#id#] .timeCmd#id#'));  
-	 })
+      if ('#time#' == 'duree') {  
+        jeedom.cmd.displayDuration(_options.valueDate,  $('.cmd[data-cmd_id=#id#] .timeCmd'));
+          }
+      else if ('#time#' == 'date') {
+      	var date = new Date(_options.valueDate.replace(' ', 'T'));
+        var t = _options.valueDate.split(/[- :]/);
+		var format = $.datepicker.formatDate('D d M', date);
+        var time = "à "+t[3]+":"+t[4];  
+        $('.cmd[data-cmd_id=#id#] .timeCmd').html(format+'<br>'+time);
       	}
-      else if (valUptime == 'date') {
-        var date = new Date(_options.valueDate);
-		var format = $.datepicker.formatDate('D dd/mm', date);
-		var time = "à "+date.getHours()+":"+(date.getMinutes()<10?'0':'')+date.getMinutes();
-        $('.cmd[data-cmd_id=#id#] .timeCmd#id#').empty().html(format+'<br>'+time);
+      else if ('#time#' == 'heure') {
+        var date = new Date(_options.valueDate.replace(' ', 'T'));
+        var t = _options.valueDate.split(/[- :]/);
+        var time = "à "+t[3]+":"+t[4]+":"+t[5];  
+        $('.cmd[data-cmd_id=#id#] .timeCmd').html(time);
       	}
-      else if (valUptime == 'heure') {
-        var date = new Date(_options.valueDate);
-        var time = "à "+date.getHours()+":"+(date.getMinutes()<10?'0':'')+date.getMinutes()+":"+(date.getSeconds()<10?'0':'')+date.getSeconds()+"";
-        $('.cmd[data-cmd_id=#id#] .timeCmd#id#').empty().html(time);
-      	}
-      
-	}
+		}
 	jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
 	</script>
 </div>
